@@ -16,6 +16,13 @@ namespace UnityIsBetter.Shortcuts
         {
             return GameObject.Find(Path);
         }
+
+        // Try to find the game object which should be linked to this shortcut object
+        public bool TryToFind(out GameObject gameObject)
+        {
+            gameObject = Find();
+            return gameObject != null;
+        }
     }
 
 }

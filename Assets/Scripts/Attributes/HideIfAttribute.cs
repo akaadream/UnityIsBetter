@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEditor;
 using UnityEngine;
 
@@ -6,22 +6,22 @@ namespace UnityIsBetter.Attributes
 {
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property | AttributeTargets.Method, AllowMultiple = true)]
     [System.Diagnostics.Conditional("UNITY_EDITOR")]
-    public class ShowIfAttribute : PropertyAttribute
+    public class HideIfAttribute : PropertyAttribute
     {
         public readonly string NameOf;
 
-        public ShowIfAttribute(string nameOf)
+        public HideIfAttribute(string nameOf)
         {
             NameOf = nameOf;
         }
     }
 
-    [CustomPropertyDrawer(typeof(ShowIfAttribute))]
-    public class ShowIfDrawer : PropertyDrawer
+    [CustomPropertyDrawer(typeof(HideIfAttribute))]
+    public class HideIfDrawer : PropertyDrawer
     {
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
-            if (ShouldShow(property))
+            if (ShouldDisplay(property))
             {
                 return EditorGUI.GetPropertyHeight(property, label, true);
             }
@@ -31,18 +31,19 @@ namespace UnityIsBetter.Attributes
         }
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            if (ShouldShow(property))
+            if (ShouldDisplay(property))
             {
                 EditorGUI.PropertyField(position, property, label, true);
             }
         }
 
-        private bool ShouldShow(SerializedProperty property)
+        private bool ShouldDisplay(SerializedProperty property)
         {
-            ShowIfAttribute conditional = (ShowIfAttribute)attribute;
+            HideIfAttribute conditional = (HideIfAttribute)attribute;
             SerializedProperty conditionProperty = property.serializedObject.FindProperty(conditional.NameOf);
 
-            return conditionProperty != null && DisplayAttributeHelper.ShouldDisplay(conditionProperty);
+            return conditionProperty != null && !DisplayAttributeHelper.ShouldDisplay(conditionProperty);
         }
     }
+
 }

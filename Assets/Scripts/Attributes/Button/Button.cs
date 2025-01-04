@@ -20,7 +20,10 @@ namespace UnityIsBetter.Attributes
 
         internal void Draw(IEnumerable<object> targets)
         {
-            if (!GUILayout.Button(DisplayName)) return;
+            if (!GUILayout.Button(DisplayName))
+            {
+                return;
+            }
 
             foreach (object target in targets)
             {
