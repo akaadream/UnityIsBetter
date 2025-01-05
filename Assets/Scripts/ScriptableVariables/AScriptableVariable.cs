@@ -26,7 +26,7 @@ namespace UnityIsBetter.ScriptableVariables
         public T Initial;
 
 #if UNITY_EDITOR
-        [SerializeField]
+        [SerializeField, TextArea]
         private string _description;
 
         [SerializeField, Disabled]

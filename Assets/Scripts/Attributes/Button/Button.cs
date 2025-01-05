@@ -1,11 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
 namespace UnityIsBetter.Attributes
 {
-    public class Button
+    [CustomPropertyDrawer(typeof(ButtonAttribute))]
+    public class Button : PropertyDrawer
     {
         public readonly string DisplayName;
         public readonly MethodInfo Method;

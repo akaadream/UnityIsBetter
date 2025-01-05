@@ -5,7 +5,8 @@ using UnityEditor;
 
 namespace UnityIsBetter.Attributes
 {
-    public class ButtonsDrawer
+    [CustomPropertyDrawer(typeof(ButtonAttribute))]
+    public class ButtonsDrawer : PropertyDrawer
     {
         public readonly List<IGrouping<string, Button>> ButtonGroups;
 
